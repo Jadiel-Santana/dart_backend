@@ -8,12 +8,12 @@ import 'utils/utils.dart';
 Future<void> main() async {
   CustomEnv.fromFile('.env-dev');
 
-  final cascadeHandler = Cascade()
-      .add(BlogApi(service: NewsService()).handler)
-      .handler;
+  final cascadeHandler =
+      Cascade().add(BlogApi(service: NewsService()).handler).handler;
 
   final handler = Pipeline()
       .addMiddleware(logRequests())
+      .addMiddleware(MiddlewareInterceptor().middleware)
       .addHandler(cascadeHandler);
 
   await CustomServer().initialize(
