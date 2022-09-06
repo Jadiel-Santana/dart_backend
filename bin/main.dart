@@ -7,15 +7,18 @@ import 'utils/utils.dart';
 
 Future<void> main() async {
   CustomEnv.fromFile('.env-dev');
+  final service = SecurityServiceImp();
 
   final cascadeHandler = Cascade()
-      .add(LoginApi(service: SecurityServiceImp()).handler)
+      .add(LoginApi(service: service).handler)
       .add(BlogApi(service: NewsService()).handler)
       .handler;
 
   final handler = Pipeline()
       .addMiddleware(logRequests())
       .addMiddleware(MiddlewareInterceptor().middleware)
+      .addMiddleware(service.authorization)
+      .addMiddleware(service.verifyJWT)
       .addHandler(cascadeHandler);
 
   await CustomServer().initialize(
