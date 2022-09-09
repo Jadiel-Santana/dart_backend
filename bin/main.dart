@@ -10,15 +10,17 @@ Future<void> main() async {
   final service = SecurityServiceImp();
 
   final cascadeHandler = Cascade()
-      .add(LoginApi(service: service).handler)
-      .add(BlogApi(service: NewsService()).handler)
-      .handler;
+      .add(LoginApi(service: service).getHandler())
+      .add(
+        BlogApi(service: NewsService()).getHandler(middlewares: [
+          service.authorization,
+          service.verifyJWT,
+        ]),
+      ).handler;
 
   final handler = Pipeline()
       .addMiddleware(logRequests())
       .addMiddleware(MiddlewareInterceptor().middleware)
-      .addMiddleware(service.authorization)
-      .addMiddleware(service.verifyJWT)
       .addHandler(cascadeHandler);
 
   await CustomServer().initialize(

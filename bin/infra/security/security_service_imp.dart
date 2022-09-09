@@ -56,14 +56,6 @@ class SecurityServiceImp implements SecurityService<JWT> {
   @override
   Middleware get verifyJWT => createMiddleware(
     requestHandler: (Request req) {
-      final apiRouter = ApiRouterValidate()
-        .add('login')
-        .add('xpto')
-        .add('register')
-        .add('test');
-
-      if(apiRouter.isPublic(req.url.path)) return null;
-
       if(req.context['jwt'] == null) {
         return Response.forbidden('Not authorized');
       }
