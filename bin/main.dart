@@ -7,7 +7,11 @@ import 'utils/utils.dart';
 
 Future<void> main() async {
   CustomEnv.fromFile('.env-dev');
-  final service = SecurityServiceImp();
+
+  final di = DependencyInjectorContainer();
+  di.register<SecurityService>(() => SecurityServiceImp());
+
+  final service = di.get<SecurityService>();
 
   final cascadeHandler = Cascade()
       .add(LoginApi(service: service).getHandler())
