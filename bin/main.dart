@@ -2,25 +2,17 @@ import 'package:shelf/shelf.dart';
 
 import 'apis/apis.dart';
 import 'infra/infra.dart';
-import 'services/services.dart';
 import 'utils/utils.dart';
 
 Future<void> main() async {
   CustomEnv.fromFile('.env-dev');
 
-  final di = DependencyInjectorContainer();
-  di.register<SecurityService>(() => SecurityServiceImp());
-
-  final service = di.get<SecurityService>();
+  final instance = Injects.initialize();
 
   final cascadeHandler = Cascade()
-      .add(LoginApi(service: service).getHandler())
-      .add(
-        BlogApi(service: NewsService()).getHandler(middlewares: [
-          service.authorization,
-          service.verifyJWT,
-        ]),
-      ).handler;
+      .add(instance.get<LoginApi>().getHandler())
+      .add(instance.get<BlogApi>().getHandler(isSecurity: true))
+      .handler;
 
   final handler = Pipeline()
       .addMiddleware(logRequests())
