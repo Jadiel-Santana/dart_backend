@@ -7,6 +7,8 @@ class Injects {
   static DependencyInjectorContainer initialize() {
     final instance = DependencyInjectorContainer();
 
+    instance.register<DBConfig>(() => MySqlDBConfig());
+
     instance.register<SecurityService>(() => SecurityServiceImp());
 
     instance.register<LoginApi>(
