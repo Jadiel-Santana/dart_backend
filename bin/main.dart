@@ -3,6 +3,7 @@ import 'package:shelf/shelf.dart';
 
 import 'apis/apis.dart';
 import 'infra/infra.dart';
+import 'models/models.dart';
 import 'utils/utils.dart';
 
 Future<void> main() async {
@@ -16,7 +17,8 @@ Future<void> main() async {
   final resultNews = await connection.query('SELECT * FROM noticias');
 
   for(ResultRow r in resultUsers) {
-    print(r.fields);
+    final user = UserModel.fromMap(r.fields);
+    print(user.toString());
   }
   print('------------------------------------');
   for(ResultRow r in resultNews) {
