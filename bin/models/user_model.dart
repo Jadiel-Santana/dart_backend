@@ -1,22 +1,25 @@
 class UserModel {
-  final int id;
-  final String name;
-  final String email;
-  final bool isActive;
-  final DateTime createdDate;
-  final DateTime updatedDate;
+  int? id;
+  String? name;
+  String? email;
+  String? password;
+  bool? isActive;
+  DateTime? createdDate;
+  DateTime? updatedDate;
 
-  const UserModel({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.isActive,
-    required this.createdDate,
-    required this.updatedDate,
+  UserModel();
+
+  UserModel.create({
+    this.id,
+    this.name,
+    this.email,
+    this.isActive,
+    this.createdDate,
+    this.updatedDate,
   });
 
   factory UserModel.fromMap(Map map) {
-    return UserModel(
+    return UserModel.create(
       id: map['id']?.toInt() ?? 0,
       name: map['nome'] ?? '',
       email: map['email'] ?? '',
