@@ -9,10 +9,15 @@ class Injects {
 
     instance.register<SecurityService>(() => SecurityServiceImp());
 
-    instance.register<LoginApi>(() => LoginApi(service: instance()));
+    instance.register<LoginApi>(
+      () => LoginApi(service: instance<SecurityService>()),
+    );
 
     instance.register<GenericService<NewsModel>>(() => NewsService());
-    instance.register<BlogApi>(() => BlogApi(service: instance()));
+    instance.register<BlogApi>(
+      () => BlogApi(service: instance<GenericService<NewsModel>>()),
+    );
+
     return instance;
   }
 }
