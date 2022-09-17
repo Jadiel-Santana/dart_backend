@@ -18,8 +18,8 @@ class BlogApi extends Api {
   Handler getHandler({List<Middleware>? middlewares, bool isSecurity = false}) {
     final router = Router();
 
-    router.get('/blog/noticias', (Request req) {
-      List<NewsModel> news = service.findAll();
+    router.get('/blog/noticias', (Request req) async {
+      List<NewsModel> news = await service.findAll();
       List<Map> newsMap = news.map((e) => e.toMap()).toList();
 
       return Response.ok(jsonEncode(newsMap));
