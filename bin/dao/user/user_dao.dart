@@ -1,6 +1,6 @@
-import '../infra/infra.dart';
-import '../models/models.dart';
-import '../dao/dao.dart';
+import '../../infra/infra.dart';
+import '../../models/models.dart';
+import '../dao.dart';
 
 class UserDAO implements CustomDAO<UserModel> {
   final DBConfig dbConfig;

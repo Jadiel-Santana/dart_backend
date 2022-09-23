@@ -11,7 +11,7 @@ Future<void> main() async {
 
   final cascadeHandler = Cascade()
       .add(instance.get<LoginApi>().getHandler())
-      .add(instance.get<BlogApi>().getHandler(isSecurity: true))
+      .add(instance.get<NewsApi>().getHandler(isSecurity: true))
       .add(instance.get<UserApi>().getHandler(isSecurity: true))
       .handler;
 

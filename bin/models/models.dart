@@ -1,2 +1,2 @@
-export 'user_model.dart';
-export 'news_model.dart';
+export 'news/news.dart';
+export 'user/user.dart';

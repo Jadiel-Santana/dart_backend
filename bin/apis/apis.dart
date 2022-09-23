@@ -1,4 +1,4 @@
-export 'api_base/api_base.dart';
-export 'blog/blog.dart';
+export 'base/base.dart';
 export 'login/login.dart';
+export 'news/news.dart';
 export 'user/user.dart';

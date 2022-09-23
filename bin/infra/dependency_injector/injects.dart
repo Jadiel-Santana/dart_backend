@@ -13,8 +13,8 @@ class Injects {
     instance.register<SecurityService>(() => SecurityServiceImp());
 
     instance.register<GenericService<NewsModel>>(() => NewsService());
-    instance.register<BlogApi>(
-      () => BlogApi(service: instance<GenericService<NewsModel>>()),
+    instance.register<NewsApi>(
+      () => NewsApi(service: instance<GenericService<NewsModel>>()),
     );
 
     instance.register<CustomDAO<UserModel>>(

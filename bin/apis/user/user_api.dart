@@ -27,20 +27,20 @@ class UserApi extends Api {
       return (result) ? Response(201) : Response(500);
     });
 
-    // router.get('/blog/noticias', (Request req) async {
+    // router.get('/news/noticias', (Request req) async {
     //   List<NewsModel> news = await service.findAll();
     //   List<Map> newsMap = news.map((e) => e.toMap()).toList();
     //
     //   return Response.ok(jsonEncode(newsMap));
     // });
     //
-    // router.put('/blog/noticias', (Request req) {
+    // router.put('/news/noticias', (Request req) {
     //   String? id = req.url.queryParameters['id'];
     //   // service.save(value: id);
     //   return Response.ok('Choveu hoje');
     // });
     //
-    // router.delete('/blog/noticias', (Request req) {
+    // router.delete('/news/noticias', (Request req) {
     //   String? id = req.url.queryParameters['id'];
     //   // service.delete(id: id);
     //   return Response.ok('Choveu hoje');
