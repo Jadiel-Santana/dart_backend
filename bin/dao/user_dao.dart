@@ -56,6 +56,16 @@ class UserDAO implements CustomDAO<UserModel> {
     return result.affectedRows > 0;
   }
 
+  Future<UserModel?> findByEmail({required String email}) async {
+    final result = await _executeSQL(
+      sql: 'SELECT * FROM usuarios WHERE email = ?',
+      params: [email],
+    );
+    return (result.affectedRows == 0)
+        ? null
+        : UserModel.fromEmail(result.first.fields);
+  }
+
   Future _executeSQL({required String sql, List? params}) async {
     final connection = await dbConfig.connection;
     return await connection.query(sql, params);

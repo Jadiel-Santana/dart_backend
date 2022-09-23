@@ -12,10 +12,6 @@ class Injects {
 
     instance.register<SecurityService>(() => SecurityServiceImp());
 
-    instance.register<LoginApi>(
-      () => LoginApi(service: instance<SecurityService>()),
-    );
-
     instance.register<GenericService<NewsModel>>(() => NewsService());
     instance.register<BlogApi>(
       () => BlogApi(service: instance<GenericService<NewsModel>>()),
@@ -31,6 +27,15 @@ class Injects {
       () => UserApi(service: instance<GenericService<UserModel>>()),
     );
 
+    instance.register<LoginService>(
+      () => LoginService(service: instance<GenericService<UserModel>>()),
+    );
+    instance.register<LoginApi>(
+      () => LoginApi(
+        securityService: instance<SecurityService>(),
+        loginService: instance<LoginService>(),
+      ),
+    );
     return instance;
   }
 }
