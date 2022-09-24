@@ -8,15 +8,24 @@ class Injects {
   static DependencyInjectorContainer initialize() {
     final instance = DependencyInjectorContainer();
 
+    //MYSQL
     instance.register<DBConfig>(() => MySqlDBConfig());
 
+    //SECURITY
     instance.register<SecurityService>(() => SecurityServiceImp());
 
-    instance.register<GenericService<NewsModel>>(() => NewsService());
+    //NEWS
+    instance.register<CustomDAO<NewsModel>>(
+      () => NewsDAO(dbConfig: instance<DBConfig>()),
+    );
+    instance.register<GenericService<NewsModel>>(
+      () => NewsService(dao: instance<CustomDAO<NewsModel>>()),
+    );
     instance.register<NewsApi>(
       () => NewsApi(service: instance<GenericService<NewsModel>>()),
     );
 
+    //USERS
     instance.register<CustomDAO<UserModel>>(
       () => UserDAO(dbConfig: instance<DBConfig>()),
     );
@@ -27,6 +36,7 @@ class Injects {
       () => UserApi(service: instance<GenericService<UserModel>>()),
     );
 
+    //LOGIN
     instance.register<LoginService>(
       () => LoginService(service: instance<GenericService<UserModel>>()),
     );

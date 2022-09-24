@@ -13,30 +13,30 @@ class UserService implements GenericService<UserModel> {
 
   @override
   Future<bool> delete({required int id}) async {
-    return dao.delete(id: id);
+    return await dao.delete(id: id);
   }
 
   @override
   Future<List<UserModel>> findAll() async {
-    return dao.findAll();
+    return await dao.findAll();
   }
 
   @override
   Future<UserModel?> findOne({required int id}) async {
-    return dao.findOne(id: id);
+    return await dao.findOne(id: id);
   }
 
   @override
   Future<bool> save({required UserModel value}) async {
     if (value.id == null) {
       value.password = Password.hash(value.password!, PBKDF2());
-      return dao.create(value: value);
+      return await dao.create(value: value);
     } else {
-      return dao.update(value: value);
+      return await dao.update(value: value);
     }
   }
 
   Future<UserModel?> findByEmail({required String email}) async {
-    return dao.findByEmail(email: email);
+    return await dao.findByEmail(email: email);
   }
 }

@@ -19,7 +19,7 @@ class UserApi extends Api {
     final router = Router();
 
     router.post('/users', (Request req) async {
-      var body = await req.readAsString();
+      final body = await req.readAsString();
       if(body.isEmpty) {
         return Response(400);
       }

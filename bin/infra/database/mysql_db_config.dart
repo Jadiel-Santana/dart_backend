@@ -23,4 +23,10 @@ class MySqlDBConfig implements DBConfig {
       ),
     );
   }
+
+  @override
+  Future<dynamic> executeSQL({required String sql, List? params}) async {
+    final connection = await this.connection;
+    return await connection.query(sql, params);
+  }
 }

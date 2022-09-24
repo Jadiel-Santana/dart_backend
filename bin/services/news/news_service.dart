@@ -1,36 +1,35 @@
+import '../../dao/news/news_dao.dart';
 import '../../models/models.dart';
-import '../../utils/utils.dart';
 import '../services.dart';
 
 class NewsService implements GenericService<NewsModel> {
-  final List<NewsModel> _listMock = [];
+  final NewsDAO dao;
+
+  const NewsService({
+    required this.dao,
+  });
 
   @override
   Future<bool> delete({required int id}) async {
-    _listMock.removeWhere((element) => element.id == id);
-    return true;
+    return await dao.delete(id: id);
   }
 
   @override
   Future<List<NewsModel>> findAll() async {
-    return _listMock;
+    return await dao.findAll();
   }
 
   @override
   Future<NewsModel?> findOne({required int id}) async {
-    return _listMock.firstWhere((element) => element.id == id);
+    return await dao.findOne(id: id);
   }
 
   @override
   Future<bool> save({required NewsModel value}) async {
-    NewsModel? model = _listMock.firstWhereOrNull((e) => e.id == value.id);
-    if (model == null) {
-      _listMock.add(value);
+    if (value.id == null) {
+      return await dao.create(value: value);
     } else {
-      var index = _listMock.indexOf(model);
-      _listMock[index] = value;
+      return await dao.update(value: value);
     }
-
-    return true;
   }
 }
