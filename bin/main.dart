@@ -17,7 +17,8 @@ Future<void> main() async {
 
   final handler = Pipeline()
       .addMiddleware(logRequests())
-      .addMiddleware(MiddlewareInterceptor().middleware)
+      .addMiddleware(MiddlewareInterceptor.contentTypeJson)
+      .addMiddleware(MiddlewareInterceptor.cors)
       .addHandler(cascadeHandler);
 
   await CustomServer().initialize(
